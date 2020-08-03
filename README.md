@@ -1,5 +1,5 @@
 # Testing with Jest/Enzyme
-Learning to use Enzyme to test React components independelty now that I have gained a working experience of React. Includes Redux.
+Learning to use Enzyme to test React components independelty now that I have gained a working experience of React. Unit Tests & Integration Tests with Redux and Axios/Moxios.
  
 
 ### `npm test`
