@@ -3,7 +3,7 @@ Learning to use Enzyme to test React components independelty now that I have gai
 
 Multiple test directories located in the same directory as the components they test.
  
-# Creating our own Middleware (redux-promise and state schema validator)
+# Creating our own Middlewares
 I recreated a simpler version of the redux-promise middleware to handle asynchronous dispatched actions.
 I also recreated a state validator to ensure that any values added into our store match a specific schema and warns a user if an unsupported value is added.
 
