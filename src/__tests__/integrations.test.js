@@ -1,9 +1,11 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import moxios from "moxios";
 import Root from "Root";
 import App from "components/App";
-
+import CommentBox from "components/CommentBox";
+import CommentList from "components/CommentList";
+import { MemoryRouter } from "react-router";
 beforeEach(() => {
   moxios.install();
   moxios.stubRequest("http://jsonplaceholder.typicode.com/comments", {
@@ -16,12 +18,19 @@ afterEach(() => {
   moxios.uninstall();
 });
 it("can fetch a list of comments and display them", (done) => {
+  const initialState = {
+    auth: true,
+  };
   // Attempt to render App
-  const wrapped = mount(
-    <Root>
-      <App />
-    </Root>
+  let wrapped = mount(
+    <MemoryRouter initialEntries={["/post"]}>
+      <Root initialState={initialState}>
+        <App />
+      </Root>
+    </MemoryRouter>
   );
+  expect(wrapped.find(CommentBox)).toHaveLength(1);
+
   // Click fetchComments button
   wrapped.find(".fetch-comments").simulate("click");
 
@@ -30,10 +39,12 @@ it("can fetch a list of comments and display them", (done) => {
   // Replace setTimeout with moxios.wait
   moxios.wait(() => {
     // Update new components/elements
-    wrapped.update();
 
+    wrapped.find(App).find("Link.link-home").simulate("click", { button: 0 }); // Redirect FROM /posts to /, Link needs a {button: 0} attr to work properly
+    wrapped.update();
+    expect(wrapped.find(CommentList)).toHaveLength(1); //FAILS HERE
     // Expect to find a list of comments
-    expect(wrapped.find("li").length).toEqual(2);
+    expect(wrapped.find(".fetch-list").length).toEqual(2);
     done();
     wrapped.unmount();
   });

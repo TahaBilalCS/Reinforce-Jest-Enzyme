@@ -2,12 +2,18 @@ import React from "react";
 import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
 import Root from "Root";
+import { MemoryRouter } from "react-router";
 let wrapped;
 beforeEach(() => {
+  const initialState = {
+    auth: true,
+  };
   wrapped = mount(
-    <Root>
-      <CommentBox />
-    </Root>
+    <MemoryRouter initialEntries={["/post"]}>
+      <Root initialState={initialState}>
+        <CommentBox />
+      </Root>
+    </MemoryRouter>
   );
 });
 

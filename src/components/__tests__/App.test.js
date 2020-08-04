@@ -1,18 +1,20 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import App from "../App";
-import CommentBox from "components/CommentBox";
 import CommentList from "components/CommentList";
-
+import Root from "Root";
+import { MemoryRouter } from "react-router";
 let wrapped;
 
 // Before every test, setup
 beforeEach(() => {
-  wrapped = shallow(<App />);
-});
-
-it("shows a comment box", () => {
-  expect(wrapped.find(CommentBox).length).toEqual(1);
+  wrapped = mount(
+    <MemoryRouter initialEntries={["/"]}>
+      <Root>
+        <App />
+      </Root>
+    </MemoryRouter>
+  );
 });
 
 it("shows a comment list", () => {
