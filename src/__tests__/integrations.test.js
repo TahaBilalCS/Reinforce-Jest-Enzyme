@@ -42,7 +42,7 @@ it("can fetch a list of comments and display them", (done) => {
 
     wrapped.find(App).find("Link.link-home").simulate("click", { button: 0 }); // Redirect FROM /posts to /, Link needs a {button: 0} attr to work properly
     wrapped.update();
-    expect(wrapped.find(CommentList)).toHaveLength(1); //FAILS HERE
+    expect(wrapped.find(CommentList)).toHaveLength(1);
     // Expect to find a list of comments
     expect(wrapped.find(".fetch-list").length).toEqual(2);
     done();
